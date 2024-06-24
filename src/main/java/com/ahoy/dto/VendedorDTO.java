@@ -2,13 +2,21 @@ package com.ahoy.dto;
 
 import java.time.LocalDate;
 
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
+import org.hibernate.validator.group.GroupSequenceProvider;
+
 import com.ahoy.enums.TipoContratacao;
+import com.ahoy.validation.PessoaFisica;
+import com.ahoy.validation.PessoaJuridica;
+import com.ahoy.validation.VendedorGroupSequenceProvider;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
+@GroupSequenceProvider(value = VendedorGroupSequenceProvider.class)
 public class VendedorDTO {
     @NotBlank
     @Pattern(regexp = ".*-(OUT|CLT|PJ)$", message = "Matrícula deve terminar com -OUT, -CLT ou -PJ")
@@ -20,7 +28,8 @@ public class VendedorDTO {
     private LocalDate dataNascimento;
 
     @NotBlank
-    @Pattern(regexp = "\\d{11}|\\d{14}", message = "CPF/CNPJ deve conter 11 ou 14 dígitos")
+    @CPF(groups = PessoaFisica.class, message = "CPF inválido")
+    @CNPJ(groups = PessoaJuridica.class, message = "CNPJ inválido")
     private String documento;
 
     @NotBlank
@@ -89,6 +98,10 @@ public class VendedorDTO {
 
     public void setFilial(String filial) {
         this.filial = filial;
+    }
+
+    public boolean isPessoaJuridica() {
+        return TipoContratacao.PESSOA_JURIDICA.equals(tipoContratacao);
     }
 
     @Override

@@ -6,12 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ahoy.model.Vendedor;
 import com.ahoy.dto.VendedorDTO;
+import com.ahoy.model.Vendedor;
 import com.ahoy.repository.VendedorRepository;
 
 import jakarta.transaction.Transactional;
-
 @Service
 public class VendedorService {
 
@@ -44,4 +43,5 @@ public class VendedorService {
     public void deleteVendedor(Long id) {
         vendedorRepository.deleteById(id);
     }
+
 }
