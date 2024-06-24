@@ -17,11 +17,18 @@ public class VendedorService {
     @Autowired
     private VendedorRepository vendedorRepository;
 
+    @Autowired
+    private SequencialMatriculaService sequencialMatriculaService;
+
     @Transactional
     public Vendedor createVendedor(VendedorDTO vendedorDTO) {
         Vendedor vendedor = new Vendedor();
+
+        // Gera a matrícula sequencial
+        String matricula = String.format("%08d", sequencialMatriculaService.proximoNumeroSequencial()) + "-" + vendedorDTO.getTipoContratacao().getSigla();
+
         // map fields from DTO to entity
-        vendedor.setMatricula(vendedorDTO.getMatricula());
+        vendedor.setMatricula(matricula);
         vendedor.setNome(vendedorDTO.getNome());
         vendedor.setDataNascimento(vendedorDTO.getDataNascimento());
         vendedor.setDocumento(vendedorDTO.getDocumento());

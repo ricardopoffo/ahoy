@@ -2,7 +2,12 @@ package com.ahoy.model;
 
 import java.time.LocalDate;
 
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.ahoy.enums.TipoContratacao;
+import com.ahoy.validation.PessoaFisica;
+import com.ahoy.validation.PessoaJuridica;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,7 +38,8 @@ public class Vendedor {
     private LocalDate dataNascimento;
 
     @NotBlank
-    @Pattern(regexp = "\\d{11}|\\d{14}", message = "CPF/CNPJ deve conter 11 ou 14 dígitos")
+    @CPF(groups = PessoaFisica.class, message = "CPF inválido")
+    @CNPJ(groups = PessoaJuridica.class, message = "CNPJ inválido")
     private String documento;
 
     @NotBlank

@@ -18,8 +18,7 @@ import jakarta.validation.constraints.Pattern;
 
 @GroupSequenceProvider(value = VendedorGroupSequenceProvider.class)
 public class VendedorDTO {
-    @NotBlank
-    @Pattern(regexp = ".*-(OUT|CLT|PJ)$", message = "Matrícula deve terminar com -OUT, -CLT ou -PJ")
+    
     private String matricula;
 
     @NotBlank
