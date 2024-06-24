@@ -2,13 +2,18 @@ package com.ahoy.model;
 
 import java.time.LocalDate;
 
+import com.ahoy.enums.TipoContratacao;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
@@ -18,7 +23,7 @@ public class Vendedor {
     private Long id;
 
     @NotBlank
-    @Pattern(regexp = ".*-(OUT|CLT|PJ)$")
+    @Pattern(regexp = ".*-(OUT|CLT|PJ)$", message = "Matrícula deve terminar com -OUT, -CLT ou -PJ")
     @Column(unique=true)
     private String matricula;
 
@@ -28,15 +33,17 @@ public class Vendedor {
     private LocalDate dataNascimento;
 
     @NotBlank
-    @Pattern(regexp = "\\d{11}|\\d{14}")
+    @Pattern(regexp = "\\d{11}|\\d{14}", message = "CPF/CNPJ deve conter 11 ou 14 dígitos")
     private String documento;
 
     @NotBlank
-    @Email
+    @Email(message = "Email deve ser válido")
+    @Pattern(regexp = "^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$", message = "Email deve ser válido")
     private String email;
 
-    @NotBlank
-    private String tipoContratacao;
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private TipoContratacao tipoContratacao;
 
     @NotBlank
     private String filial;
@@ -89,11 +96,11 @@ public class Vendedor {
         this.email = email;
     }
 
-    public String getTipoContratacao() {
+    public TipoContratacao getTipoContratacao() {
         return tipoContratacao;
     }
 
-    public void setTipoContratacao(String tipoContratacao) {
+    public void setTipoContratacao(TipoContratacao tipoContratacao) {
         this.tipoContratacao = tipoContratacao;
     }
 
