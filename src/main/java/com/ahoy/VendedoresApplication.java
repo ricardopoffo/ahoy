@@ -2,22 +2,15 @@ package com.ahoy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
 
-import io.github.cdimascio.dotenv.Dotenv;
+import ch.qos.logback.classic.Logger;
 
 @SpringBootApplication
-@Import(DotenvConfig.class)
 public class VendedoresApplication {
 
-	public static void main(String[] args) {
-		Dotenv dotenv = Dotenv.configure().load();
+	private static final Logger log = (Logger) org.slf4j.LoggerFactory.getLogger(VendedoresApplication.class);
 
-		// Log para verificar se as variáveis estão sendo carregadas
-        System.out.println("DATABASE_URL: " + dotenv.get("DATABASE_URL"));
-        System.out.println("DATABASE_USERNAME: " + dotenv.get("DATABASE_USERNAME"));
-        System.out.println("DATABASE_PASSWORD: " + dotenv.get("DATABASE_PASSWORD"));
-		
+	public static void main(String[] args) {
 		SpringApplication.run(VendedoresApplication.class, args);
 	}
 
