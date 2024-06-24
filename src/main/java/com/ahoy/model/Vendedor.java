@@ -2,6 +2,7 @@ package com.ahoy.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +19,7 @@ public class Vendedor {
 
     @NotBlank
     @Pattern(regexp = ".*-(OUT|CLT|PJ)$")
+    @Column(unique=true)
     private String matricula;
 
     @NotBlank
