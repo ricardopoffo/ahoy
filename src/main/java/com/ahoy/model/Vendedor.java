@@ -42,9 +42,8 @@ public class Vendedor {
     @CNPJ(groups = PessoaJuridica.class, message = "CNPJ inválido")
     private String documento;
 
-    @NotBlank
     @Email(message = "Email deve ser válido")
-    @Pattern(regexp = "^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$", message = "Email deve ser válido")
+    // @Pattern(regexp = "^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$", message = "Email deve ser válido")
     private String email;
 
     @Enumerated(EnumType.STRING)
