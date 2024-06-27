@@ -51,4 +51,8 @@ public class VendedorService {
         vendedorRepository.deleteById(id);
     }
 
+    public Optional<Vendedor> getVendedorById(Long id) {
+        return vendedorRepository.findById(id);
+    }
+
 }
