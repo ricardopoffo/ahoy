@@ -38,6 +38,21 @@ public class VendedorService {
         return vendedorRepository.save(vendedor);
     }
 
+    // Update the Vendedor entity
+    @Transactional
+    public Vendedor updateVendedor(Long id, VendedorDTO vendedorDTO) {
+        Vendedor vendedor = vendedorRepository.getReferenceById(id);
+
+        // map fields from DTO to entity
+        vendedor.setNome(vendedorDTO.getNome());
+        vendedor.setDataNascimento(vendedorDTO.getDataNascimento());
+        vendedor.setDocumento(vendedorDTO.getDocumento());
+        vendedor.setEmail(vendedorDTO.getEmail());
+        vendedor.setTipoContratacao(vendedorDTO.getTipoContratacao());
+        vendedor.setFilial(vendedorDTO.getFilial());
+        return vendedorRepository.save(vendedor);
+    }
+
     public Optional<Vendedor> getVendedorByMatricula(String matricula) {
         return Optional.ofNullable(vendedorRepository.findByMatricula(matricula));
     }

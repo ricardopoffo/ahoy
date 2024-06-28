@@ -23,6 +23,12 @@ public class VendedorController {
         return ResponseEntity.ok(createdVendedor);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Vendedor> updateVendedor(@PathVariable Long id, @Validated @RequestBody VendedorDTO vendedorDTO) {
+        Vendedor updatedVendedor = vendedorService.updateVendedor(id, vendedorDTO);
+        return ResponseEntity.ok(updatedVendedor);
+    }
+
     @GetMapping("/{matricula}")
     public ResponseEntity<Vendedor> getVendedorByMatricula(@PathVariable String matricula) {
         return vendedorService.getVendedorByMatricula(matricula)
